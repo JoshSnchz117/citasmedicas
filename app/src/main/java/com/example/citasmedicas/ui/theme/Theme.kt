@@ -5,7 +5,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-val AzulOscuro    = Color(0xFF0A1628)
+val AzulOscuro    = Color(0xFF6F9ADC)
 val AzulMedio     = Color(0xFF1A3A5C)
 val AzulPrimario  = Color(0xFF1565C0)
 val Celeste       = Color(0xFF2196F3)

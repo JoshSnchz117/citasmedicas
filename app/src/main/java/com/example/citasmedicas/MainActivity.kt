@@ -39,6 +39,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.citasmedicas.ui.theme.*   // ← Este import conecta con Theme.kt
 import java.util.*
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,6 +91,19 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun FormularioScreen(navController: NavController) {
+
+    //  LÓGICA DE VOLLEY
+    val context = LocalContext.current
+    var mensajeDelDia by remember { mutableStateOf("Cargando mensaje del día...") }
+
+// Ejecuta la petición HTTP una sola vez al abrir esta pantalla
+    LaunchedEffect(Unit) {
+        obtenerMensajeDelDia(context) { resultado ->
+            mensajeDelDia = resultado
+        }
+    }
+// ---------------------------------
+
     var nombre   by remember { mutableStateOf("") }
     var telefono by remember { mutableStateOf("") }
     var error    by remember { mutableStateOf("") }
@@ -135,6 +150,17 @@ fun FormularioScreen(navController: NavController) {
                 .padding(horizontal = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Text(
+                text = "\"$mensajeDelDia\"",
+                fontStyle = FontStyle.Italic,
+                fontSize = 14.sp,
+                color = AzulOscuro,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp, start = 8.dp, end = 8.dp)
+            )
+
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
